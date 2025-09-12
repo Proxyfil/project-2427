@@ -70,4 +70,4 @@ For example, a grade of `8/10` for a topic which grade factor is `1.1` will gene
 
 ## Deadline
 
-All submitted PRs will be evaluated on September 24th, 2025 at 11:00 PM UTC.
+All submitted PRs will be evaluated on October 30th, 2025 at 11:00 PM UTC.
