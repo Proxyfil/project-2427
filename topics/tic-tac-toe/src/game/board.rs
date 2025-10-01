@@ -44,4 +44,15 @@ impl Board {
         let col = index % 3;
         (row, col)
     }
+
+    pub fn is_full(&self) -> bool {
+        for row in &self.cells {
+            for cell in row {
+                if cell.is_none() {
+                    return false;
+                }
+            }
+        }
+        true
+    }
 }
