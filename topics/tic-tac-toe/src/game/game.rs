@@ -20,6 +20,7 @@ impl Game {
         }
     }
 
+    // Main game loop
     pub fn play(&mut self) {
         loop {
             self.display_board();
