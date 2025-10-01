@@ -1,3 +1,4 @@
+#[derive(Clone)]
 pub struct Board {
     cells: [[Option<char>; 3]; 3]
 }
