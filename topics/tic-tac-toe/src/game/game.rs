@@ -1,9 +1,12 @@
 use crate::game::board::Board;
+use crate::game::robot::Robot;
 use std::io;
 
 pub struct Game {
     board: Board,
     current_player: char,
+    robot: Robot,
+    is_robot_game: bool,
 }
 
 impl Game {
@@ -12,19 +15,34 @@ impl Game {
         Game {
             board: Board::new(),
             current_player: 'X',
+            robot: Robot::new('O'),
+            is_robot_game: true, // Set to true to play against robot
         }
     }
 
     pub fn play(&mut self) {
         loop {
             self.display_board();
-            println!("Player {}'s turn", self.current_player);
             
-            if self.get_player_move() {
+            let move_successful = if self.is_robot_game && self.current_player == 'O' {
+                // Robot's turn
+                println!("Robot's turn (O)");
+                self.get_robot_move()
+            } else {
+                // Human player's turn
+                println!("Player {}'s turn", self.current_player);
+                self.get_player_move()
+            };
+            
+            if move_successful {
                 // Check for winner after a successful move
                 if let Some(winner) = self.board.check_winner() {
                     self.display_board();
-                    println!("Game Over! Player {} wins!", winner);
+                    if self.is_robot_game && winner == 'O' {
+                        println!("Game Over! Robot wins!");
+                    } else {
+                        println!("Game Over! Player {} wins!", winner);
+                    }
                     break;
                 }
                 
@@ -54,6 +72,15 @@ impl Game {
             true
         } else {
             println!("Invalid move! Position is either occupied or invalid. Try again.");
+            false
+        }
+    }
+
+    fn get_robot_move(&mut self) -> bool {
+        if let Some(position) = self.robot.make_move(&mut self.board) {
+            println!("Robot chose position {}", position);
+            true
+        } else {
             false
         }
     }

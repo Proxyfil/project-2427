@@ -92,4 +92,12 @@ impl Board {
 
         None
     }
+
+    pub fn is_position_empty(&self, row: usize, col: usize) -> bool {
+        if row < 3 && col < 3 {
+            self.cells[row][col].is_none()
+        } else {
+            false
+        }
+    }
 }
