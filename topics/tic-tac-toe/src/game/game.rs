@@ -21,6 +21,13 @@ impl Game {
             println!("Player {}'s turn", self.current_player);
             
             if self.get_player_move() {
+                // Check for winner after a successful move
+                if let Some(winner) = self.board.check_winner() {
+                    self.display_board();
+                    println!("Game Over! Player {} wins!", winner);
+                    break;
+                }
+                
                 // Check for draw after a successful move
                 if self.board.is_full() {
                     self.display_board();

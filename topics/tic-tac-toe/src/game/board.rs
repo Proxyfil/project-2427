@@ -55,4 +55,41 @@ impl Board {
         }
         true
     }
+
+    pub fn check_winner(&self) -> Option<char> {
+        // Check rows
+        for row in &self.cells {
+            if let Some(symbol) = row[0] {
+                if row[1] == Some(symbol) && row[2] == Some(symbol) {
+                    return Some(symbol);
+                }
+            }
+        }
+
+        // Check columns
+        for col in 0..3 {
+            if let Some(symbol) = self.cells[0][col] {
+                if self.cells[1][col] == Some(symbol) && self.cells[2][col] == Some(symbol) {
+                    return Some(symbol);
+                }
+            }
+        }
+
+        // Check diagonals
+        // Top-left to bottom-right
+        if let Some(symbol) = self.cells[0][0] {
+            if self.cells[1][1] == Some(symbol) && self.cells[2][2] == Some(symbol) {
+                return Some(symbol);
+            }
+        }
+
+        // Top-right to bottom-left
+        if let Some(symbol) = self.cells[0][2] {
+            if self.cells[1][1] == Some(symbol) && self.cells[2][0] == Some(symbol) {
+                return Some(symbol);
+            }
+        }
+
+        None
+    }
 }
